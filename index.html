@@ -2038,7 +2038,7 @@
 	
 	function load() {
 		
-		world = validate_world(window.location.hash.substr(1)) || ['1', '2', '3'];
+		world = validate_world(window.location.hash.substr(1, 4)) || ['1', '2', '3'];
 		
 		modules = {
 			'I': $.extend(true, {}, module_defs[world[0]]['I']),
@@ -2058,7 +2058,7 @@
 
 			var entry = $("#worldno-entry");
 			if(entry.is(":visible")) {
-				entry.val(window.location.hash.substr(1))
+				entry.val(window.location.hash.substr(1, 4))
 					.focus()
 					.select();
 			} else {
