@@ -149,11 +149,11 @@
 	</div>
 </script>
 <script id="template_setup" type="x-tmpl-mustache">
-	{{#shortrules}}<div class="row warning">
+	<div class="row warning">
 		<div class="col-md-12 col-xs-12">
 			<p>This is a summary sheet of the special rules for world {{world.0}}{{world.1}}{{world.2}}. A more comprhensive Ruleset for this world can be found here. can b foundThe complete rules are in the rules booklet!</p>
 		</div>
-	</div>{{/shortrules}}
+	</div>
 	<div class="row section">
 		<div class="col-md-2 col-xs-2"><h1>Special game parts</h1></div>
 		<div class="col-md-10 col-xs-10">
@@ -167,18 +167,19 @@
 	<div class="row section">
 		<div class="col-md-2 col-xs-2"><h1>Game Preparation</h1></div>
 		<div class="col-md-10 col-xs-10">
-			{{#5}}<p>Place all map tiles in separate stacks in a row as follows: city, water, grassland, forest, field, mountain and desert. {{#1}}{{^1.III}}Lay out the cities in a numerical ascending stack - lowest numbered city on top, city "10" on bottom.{{/1.III}}{{/1}}</p>{{/5}}
+			{{#5}}<p>Place all map tiles in separate stacks {{^lrules}}by type{{/lrules}}{{#lrules}}in a row as follows: city, water, grassland, forest, field, mountain and desert{{/lrules}}. {{#1}}{{^1.III}}Lay out the cities in a numerical ascending stack - lowest numbered city on top, city "10" on bottom.{{/1.III}}{{/1}}</p>{{/5}}
 			<p>
 				Lay out map {{map.value}}.
 				{{#1}}{{^1.III}}Display cities with their goods side atop. {{#8}}The cities remain empty of goods.{{/8}}{{^8}} Place 4 goods onto each city, matching the small circular symbol.{{/8}}{{/1.III}}{{/1}}
 				{{#8}}
+					{{#1.III}}Display cities with their goods side atop. The cities remain empty of goods.{{/1.III}}
 					{{^8.III}}
 						Display land and water tiles with the goods side atop.
-						Deserts do not produce goods themselves (but see <span class="water-adjacent icon"></span>).
+						{{#lrules}}Deserts do not produce goods themselves (but see <span class="water-adjacent icon"></span>).{{/lrules}}
 					{{/8.III}}
 					{{#8.III}}{{#1}}
 						Display land and water tiles with the goods side atop.
-						Deserts do not produce goods themselves (but see <span class="water-adjacent icon"></span>).
+						{{#lrules}}Deserts do not produce goods themselves (but see <span class="water-adjacent icon"></span>).{{/lrules}}
 					{{/1}}{{/8.III}}
 				{{/8}}
 			</p>
@@ -718,14 +719,14 @@
 				<p>During the SR, the players can choose the following actions: <b>deal shares, pass or quit</b>.</p>
 				<p><b>Dealing Shares:</b> When you take this action you buy 1 share and/or sell any number of shares. During the same SR a player can either buy or sell stocks from a given company; he cannot do both.</p>
 				<p>
-					<b>Buying Shares:</b> The player pays the share value to the bank. {{#9.I}}If the company owns any shares, the player takes a share from the company and the company gets the fixed issue price (starting price) from the bank. Otherwise, t{{/9.I}}{{^9.I}}T{{/9.I}}he player takes a share from the bank. 
-					The player should place the share light side up in front of himself, to indicate that he cannot sell shares of that company this SR. Each player may only own a maximum of 50% of the shares of a single stock company. 
+					<b>Buying Shares:</b> The player pays the share value to the bank. {{#9.I}}If the company owns any shares, the player takes a share from the company and the company gets the fixed issue price (starting price) from the bank. Otherwise, t{{/9.I}}{{^9.I}}T{{/9.I}}he player takes a share from the bank{{^lrules}} light side up{{/lrules}}. 
+					{{#lrules}}The player should place the share light side up in front of himself, to indicate that he cannot sell shares of that company this SR.{{/lrules}} Each player may only own a maximum of 50% of the shares of a single stock company. 
 				</p>
 				<p>
 					<b>Establishing a stock company:</b> If the player buys the first share of a stock company, he must buy the "2"-president&rsquo;s share for twice the fixed issue price and become the president of that stock company.
-					The president marks the issue price of that stock company on the share value board (if necessary he places the share value token on top of other tokens). {{^mapnum.1}}{{^mapnum.2}}{{^mapnum.3}}During the first SR all capitals are placed in the central city.{{/mapnum.3}}{{/mapnum.2}}{{/mapnum.1}}{{^mapnum.4}}{{^mapnum.5}}The president then chooses his company&rsquo;s capital.{{/mapnum.5}}{{/mapnum.4}} In the business round (BR) he will make all of its actions.
+					The president marks the issue price of that stock company on the share value board{{#lrules}} (if necessary he places the share value token on top of other tokens){{/lrules}}. {{^mapnum.1}}{{^mapnum.2}}{{^mapnum.3}}During the first SR all capitals are placed in the central city.{{/mapnum.3}}{{/mapnum.2}}{{/mapnum.1}}{{^mapnum.4}}{{^mapnum.5}}The president then chooses his company&rsquo;s capital.{{/mapnum.5}}{{/mapnum.4}} In the business round (BR) he will make all of its actions.
 				</p>
-				{{#4}}{{^8.I}}{{^8.II}}<p><b>"Puppy Licence" provision:</b> An opposing stock company may only be attacked after it finishes its first BR. In other words, it is safe after establishing, as long as it only has a marked capital.</p>{{/8.II}}{{/8.I}}{{/4}} 
+				{{#4}}{{^8.I}}{{^8.II}}<p><b>"Puppy Licence" provision:</b> An opposing stock company may only be attacked after it finishes its first BR. {{#lrules}}In other words, it is safe after establishing, as long as it only has a marked capital.{{/lrules}}</p>{{/8.II}}{{/8.I}}{{/4}} 
 				<p>
 					<b>Establishing in later SR:</b> If Stock Companies are established in later rounds they may place their capital {{^mapnum.1}}{{^mapnum.2}}{{^mapnum.3}}on any city, which already has 1 settlement of at least one other company{{/mapnum.3}}{{/mapnum.2}}{{/mapnum.1}}{{^mapnum.4}}{{^mapnum.5}}in any city, which is not already marked as a capital of another company{{/mapnum.5}}{{/mapnum.4}}. 
 					{{#4}}{{^8.I}}{{^8.II}}If the president chooses a city containing armies of another stock company as the capital, he destroys all these opposing armies and removes them from the map!{{/8.II}}{{/8.I}}{{/4}}
@@ -739,12 +740,12 @@
 					The president cannot sell the President&rsquo;s "2" share, however they can exchange their "2" share for two "1" shares with the next player who could become president during their sell shares action. 
 					{{#9.I}}The players together may only sell 50% of the shares of a single stock company to the bank. {{/9.I}}
 					{{#9.II}}The players may sell all "1"-shares to the bank (only the president&rsquo;s share must remain in the ownership of a player). {{/9.II}}
-					The first time a player sells shares of a company during the SR, he places 1 resident from that company&rsquo;s stocks in front of himself, to indicate that he cannot buy shares of that company this SR.
+					{{#lrules}}The first time a player sells shares of a company during the SR, he places 1 resident from that company&rsquo;s stocks in front of himself, to indicate that he cannot buy shares of that company this SR.{{/lrules}}
 				</p>
 				<p><b>Pass:</b> As long as nobody quits, a player may repeatedly pass and during the same SR may later deal shares, when it is his turn in the clockwise order. If all players pass consecutively the SR ends and the first passing player gets the starting player card.</p>
 				<p>
 					<b>Quit:</b> If the player quits first in the SR, he takes the starting player card and places it with the crossed out side face up in front of himself. He will be the new starting player 
-					in the next SR. After the first player quits, the other players now either must deal shares or quit, too. The SR ends, after all players quit (or if all players pass consecutively).
+					in the next SR. {{^lrules}}Players may no longer pass; the SR ends when all players have quit.{{/lrules}}{{#lrules}}After the first player quits, the other players now either must deal shares or quit, too. The SR ends, after all players quit (or if all players pass consecutively).{{/lrules}}
 				</p>
 				<p>
 					<b>End of the SR:</b> The companies whose shares are now 100% owned by players raise their stock price by $10{{#9.II}}, <b>AND</b> the companies whose shares were bought most during this SR also raise their stock price by $10 (stocks can raise from both in one SR){{/9.II}}.
@@ -1483,6 +1484,7 @@
 	
 	var world;
 	var modules;
+	var lrules = true;
 
 	var parts = {
 		'2': {'name': 'goods', 'max': 48},
@@ -1980,6 +1982,7 @@
 			},
 			'world': world,
 			'module': modules,
+			'lrules': lrules,
 			'residents': modules['I']['residents'] || modules['II']['residents'] || modules['III']['residents'] || world.indexOf('1') == -1,
 			'hurry': world.indexOf('2') != -1 || world.indexOf('8') != -1,
 			'map': priority_match([modules['I']['map'], modules['II']['map'], modules['III']['map']]),
